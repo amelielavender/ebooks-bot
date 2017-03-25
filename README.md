@@ -117,4 +117,4 @@ urls, hashtags, and mentions are not tweeted. i'm not changing that.
 
 #### twitter oauth
 
-used [the google scriipts oauth1 library](https://github.com/googlesamples/apps-script-oauth1)
+used [the google scripts oauth1 library](https://github.com/googlesamples/apps-script-oauth1)
