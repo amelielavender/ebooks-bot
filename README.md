@@ -1,7 +1,8 @@
 # ebooks-bot
 gs script behind a google sheet for those who can't code. this google script calls info from a spreadsheet and the twitter oauth api.
 
-inspired by @zachwhalen 's ssbot
+inspired by @zachwhalen/ssbot
+
 [go to code docs](/README.md#ebooks-bot-functions)
 
 licensed under the [MIT license](/LICENSE)
