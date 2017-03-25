@@ -22,8 +22,6 @@ github.com/almondette/ebooks-bot/blob/master/LICENSE
 ********************************************/
 
 
-
-
 /*****************
   ADD 'BOT' MENU
 *****************/
@@ -195,7 +193,7 @@ function setTiming () {
     ScriptApp.deleteTrigger(triggers[i]);
   }
   
-  var setting = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('settings').getRange('D34').getValue();
+  var setting = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('settings').getRange('D35').getValue();
   
   switch (setting){
     case "12 hours":
