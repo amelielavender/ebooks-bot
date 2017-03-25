@@ -1,4 +1,5 @@
 # ebooks-bot
+gs script behind a google sheet for those who can't code. this google script calls info from a spreadsheet and the twitter oauth api.
 
 licensed under the [MIT license](/LICENSE)
 
