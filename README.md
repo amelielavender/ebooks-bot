@@ -16,7 +16,7 @@ special thanks: everyone who's ever blogged about their markov chain experiences
 to use the spreadsheet for a psuedo-markov ebooks twitter bot, you need to do and/or have these things:
 * a new twitter account for your bot
 * [a TAGS archive](https://tags.hawksey.info)
-* [the ebooks bot spreadsheet](https://docs.google.com/spreadsheets/d/1wDcNuz0pDAfgzep2bBMwHKlH2nwFeVtSbtv_difIZXw/edit#gid=0)
+* [the ebooks bot spreadsheet](https://docs.google.com/spreadsheets/d/1wDcNuz0pDAfgzep2bBMwHKlH2nwFeVtSbtv_difIZXw/copy)
 
 ## creating a new twitter account
 
