@@ -7,11 +7,9 @@ inspired by @zachwhalen/ssbot
 
 licensed under the [MIT license](/LICENSE)
 
-## todo
+credit: amelie! (@almondette on github and other places)
 
-- [ ] go over setting up a twitter app
-- [ ] setting up the ebooks bot spreadsheet
-- [ ] functions, links, credits
+special thanks: everyone who's ever blogged about their markov chain experiences. they're a great reference for beginners like me!
 
 ## pre-requisites
 
@@ -28,14 +26,32 @@ to use the spreadsheet for a psuedo-markov ebooks twitter bot, you need to do an
 
 ## setting up a twitter app
 
-* go to https://app.twitter.com 
+* go to https://apps.twitter.com 
+* head to the settings tab
 * fill out your app's name, app's description, and website.
   * ex: my bot, a bot that tweets every x hours/minutes/days, https://example.com
   * leave the callback url blank for now. the spreadsheet will generate it for you.
+  * make sure "Allow this application to be used to Sign in with Twitter" is checked
+* head to the keys and access tokens tab
+  * generate your access tokens and consumer secret
+  * make sure your app has both read and write access
+* stay on the keys and access tokens page. you'll need your token and secret for your spreadsheet
 
 ## setting up the ebooks bot spreadsheet
 
-double click on each cell to fill in the appropriate information correctly. i'm still not used to that, myself...
+double click on each cell to fill in the appropriate information correctly. ~~i'm still not used to that, myself...~~
+
+* fill in your bot's username to serve as a reminder when you're editing the sheet. i also recommend changing the name of your new spreadsheet to "[username] bot".
+* follow the instructions on the left side of the sheet. they prompt you to fill in the appropriate information.
+* make sure to get the entire url of your TAGS sheet by opening it up and copying what appears in your address bar. 
+  * you don't need to change *sharing* permissions or anything. ie, your TAGS sheet isn't shared with anyone and can only be viewed by you.
+* the ebooks bot sheet will ask you for permission to access files on your google drive, accept to let ebooks bot read your TAGS archive!
+* a callback url will be generated after pasting your script id into the correct field. copy the callback url into your app's details on https://apps.twitter.com
+
+generate a preview. this will populate the preview sheet.
+go to `bot > send a test tweet`. you may be prompted to visit a link and `send a test tweet` again
+if your bot tweeted after authenticating, congrats! 
+go to `bot > start posting tweets` to activate timed tweets on the timer that you set via a dropdown.
 
 ## ebooks bot functions
 
@@ -118,3 +134,7 @@ urls, hashtags, and mentions are not tweeted. i'm not changing that.
 #### twitter oauth
 
 used [the google scripts oauth1 library](https://github.com/googlesamples/apps-script-oauth1)
+
+#### google script documentation
+
+good [stuff](https://developers.google.com/apps-script/reference/calendar/)
