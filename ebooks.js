@@ -36,7 +36,7 @@ function onOpen() {
       .addItem('Send a Test Tweet', 'makeSingleTweet')
       .addItem('Revoke Twitter Authorization', 'authRevoke')
       .addSeparator()
-      .addItem('Start Posting Tweets', 'setTiming' && 'timedReply')
+      .addItem('Start Posting Tweets', 'setTiming' )
       .addItem('Stop Posting Tweets', 'clearTiming')
       .addToUi();
 };
@@ -173,7 +173,7 @@ function authCallback(request) {
 }
 
 function authRevoke(){
-    OAuth1.createService('twitter')
+  OAuth1.createService('twitter')
       .setPropertyStore(PropertiesService.getUserProperties())
       .reset();
   msgPopUp('<p>Your Twitter authorization deleted. You\'ll need to re-run "Send a Test Tweet" to reauthorize before you can start posting again.');
@@ -184,8 +184,8 @@ function authRevoke(){
   TWEET TIMING~
 *****************/
 
-//calls makeSingleTweetgenerateSingleTweet function on a timer. Makes sense!
-function setTiming () {
+//calls makeSingleTweet function on a timer. Makes sense!
+function setTiming() {
   
   // reset any existing triggers
   var triggers = ScriptApp.getProjectTriggers();
@@ -193,6 +193,8 @@ function setTiming () {
     ScriptApp.deleteTrigger(triggers[i]);
   }
   
+
+
   var setting = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('settings').getRange('D35').getValue();
   
   switch (setting){
@@ -259,8 +261,13 @@ function setTiming () {
     default:
       Logger.log('I\'m sorry, but I couldn\'t understand what you were asking.');
   }
-  
+ 
+   ScriptApp.newTrigger("makeReply")
+     .timeBased()
+     .everyMinutes(5)
+     .create();
   Logger.log(trigger);
+  
 }
 
 function clearTiming () {
@@ -306,21 +313,12 @@ function doTweet (tweet) {
 
   try {
     var result = service.fetch('https://api.twitter.com/1.1/statuses/update.json', parameters);
-    Logger.log(result.getContentText());    
+    //Logger.log(result.getContentText());    
   }  
   catch (e) {    
     Logger.log(e.toString());
   }
 
-}
-
-
- function timedReply() {
-
-  ScriptApp.newTrigger("makeReply")
-           .timeBased()
-           .everyMinutes(5)
-           .create();
 }
 
 function makeReply() {
