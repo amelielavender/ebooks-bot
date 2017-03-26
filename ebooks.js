@@ -315,7 +315,7 @@ function doTweet (tweet) {
 }
 
 
-function timedReply() {
+ function timedReply() {
 
   ScriptApp.newTrigger("makeReply")
            .timeBased()
@@ -339,7 +339,8 @@ function makeReply() {
 
   var parameters = {
     "method": "GET",
-    "result_type": "recent"
+    "result_type": "recent",
+    "max_id": 0
   }
   
   var results = service.fetch(search,parameters);
@@ -348,9 +349,17 @@ function makeReply() {
   var user = data.statuses[0].user.screen_name;
   var id = data.statuses[0].id_str;
   
-  while ( id !== id ) {
-    doReply(user, id);
-  } 
+  var check = sheet.getRange('D40').getValue(); //gets id to reference
+  var re = new RegExp(id, 'g');
+  
+  if (check.match(re)) {
+      Logger.log('already replied');
+      } else {
+      doReply(user, id);
+      Logger.log(id); 
+      var log = Logger.getLog();  
+      sheet.getRange('D40').setValue(log); //logs new id
+      } 
 }
 
 //sends reply
@@ -376,12 +385,12 @@ function doReply(user, id) {
 
   try {
     var result = service.fetch('https://api.twitter.com/1.1/statuses/update.json', parameters);
-    Logger.log(result.getContentText());    
+    //Logger.log(result.getContentText());    
   }  
   catch (e) {    
     Logger.log(e.toString());
   } 
-}
+} 
     
     
     
