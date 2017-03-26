@@ -138,3 +138,16 @@ used [the google scripts oauth1 library](https://github.com/googlesamples/apps-s
 #### google script documentation
 
 good [stuff](https://developers.google.com/apps-script/reference/calendar/)
+
+## replies (experiemental)
+
+polls twitter/search every 5 minutes
+
+```
+if(service.hasAccess()) {
+    var search = ('https://api.twitter.com/1.1/search/tweets.json?q=to%3A' + username);
+  } else {
+    var authorizationUrl = service.authorize();
+    msgPopUp('<p>Please visit the following URL and then re-run "Send a Test Tweet": <br/> <a target="_blank" href="' + authorizationUrl + '">' + authorizationUrl + '</a></p>');
+  }
+```
