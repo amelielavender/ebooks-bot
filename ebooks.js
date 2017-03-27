@@ -350,10 +350,8 @@ function makeReply() {
         var id = data.statuses[d].id_str;
         var recent = data.statuses[0].id_str;
       
-        Logger.log(data.statuses[d].user.screen_name);
-      
         var check = sheet.getRange('D40').getValue(); //gets id to reference
-        var re = new RegExp(id, 'g');
+        var re = new RegExp(recent, 'g'); //sesarching sheet against the most recent tweet
 
         if (check.match(re)) {
             Logger.log('already replied!');
