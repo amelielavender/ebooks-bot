@@ -11,6 +11,15 @@ credit: amelie! (@almondette on github and other places)
 
 special thanks: everyone who's ever blogged about their markov chain experiences. they're a great reference for beginners like me!
 
+## features
+
+* no coding or knowledge of scripting languages necessary!
+* says things weird
+* replies on a limited basis **EXPERIMENTAL**
+* filters out usernames and links in the final created tweets
+* **doesn't**
+  * auto like, respond to new follows, auto-rt
+
 ## pre-requisites
 
 to use the spreadsheet for a psuedo-markov ebooks twitter bot, you need to do and/or have these things:
@@ -49,7 +58,7 @@ double click on each cell to fill in the appropriate information correctly. ~~i'
 * a callback url will be generated after pasting your script id into the correct field. copy the callback url into your app's details on https://apps.twitter.com
 
 generate a preview. this will populate the preview sheet.
-go to `bot > send a test tweet`. you may be prompted to visit a link and `send a test tweet` again
+go to `bot > send a test tweet`. you may be prompted to visit a link and `send a test tweet` again.
 if your bot tweeted after authenticating, congrats! 
 go to `bot > start posting tweets` to activate timed tweets on the timer that you set via a dropdown.
 
