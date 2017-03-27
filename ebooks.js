@@ -343,11 +343,13 @@ function makeReply() {
     var results = service.fetch(search, parameters);
     var json = results.getContentText();
     var data = JSON.parse(json);
-    var user = data.statuses[d].user.screen_name;
-    var id = data.statuses[d].id_str;
-    var recent = data.statuses[0].id_str;
 
     for (var d = 0; d < data.statuses.length; d++) {
+        
+        var user = data.statuses[d].user.screen_name;
+        var id = data.statuses[d].id_str;
+        var recent = data.statuses[0].id_str;
+        
         var check = sheet.getRange('D40').getValue(); //gets id to reference
         var re = new RegExp(recent, 'g');
 
