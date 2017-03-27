@@ -347,11 +347,23 @@ function makeReply() {
     var id = data.statuses[d].id_str;
     var recent = data.statuses[0].id_str;
 
+    for (var d = 0; d < data.statuses.length; d++) {
+        var check = sheet.getRange('D40').getValue(); //gets id to reference
+        var re = new RegExp(recent, 'g');
+
+        if (check.match(re)) {
+            Logger.log('caught up on my mentions!');
+        } else {
+            doReply(user, id);
+            Logger.log(recent);
+            var log = Logger.getLog();
+            sheet.getRange('D40').setValue(log); //logs new id
+        }
+    }
 }
 
 //sends reply
 function doReply(user, id) {
-    
 
     var mention = '@' + user + ' ';
     var service = getTwitterService();
