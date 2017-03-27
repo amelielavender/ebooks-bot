@@ -344,22 +344,25 @@ function makeReply() {
     var json = results.getContentText();
     var data = JSON.parse(json);
 
-    for (var d = 0; d < data.statuses.length; d++) {
+    for (var d = 0; d < [5]; d++) {
         
         var user = data.statuses[d].user.screen_name;
         var id = data.statuses[d].id_str;
         var recent = data.statuses[0].id_str;
-        
+      
+        Logger.log(data.statuses[d].user.screen_name);
+      
         var check = sheet.getRange('D40').getValue(); //gets id to reference
-        var re = new RegExp(recent, 'g');
+        var re = new RegExp(id, 'g');
 
         if (check.match(re)) {
-            Logger.log('caught up on my mentions!');
+            Logger.log('already replied!');
+            break;
         } else {
             doReply(user, id);
             Logger.log(recent);
             var log = Logger.getLog();
-            sheet.getRange('D40').setValue(log); //logs new id
+            sheet.getRange('D40').setValue(log); //logs new id 
         }
     }
 }
