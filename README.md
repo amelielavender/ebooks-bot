@@ -20,8 +20,8 @@ special thanks: everyone who's ever blogged about their markov chain experiences
 * **doesn't**
   * auto like, respond to new follows, auto-rt
 
-!(/images/bot-menu.gif)
-!(/images/input.gif)
+| ![](/images/bot-menu.gif) | ![](/images/input.gif)
+|---|---|
 
 ## pre-requisites
 
