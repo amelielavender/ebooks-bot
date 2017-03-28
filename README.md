@@ -6,8 +6,6 @@ inspired by @zachwhalen/ssbot
 
 [go to code docs](/README.md#ebooks-bot-functions)
 
-licensed under the [MIT license](/LICENSE)
-
 credit: amelie! (@almondette on github and other places)
 
 special thanks: everyone who's ever blogged about their markov chain experiences. they're a great reference for beginners like me!
@@ -21,6 +19,9 @@ special thanks: everyone who's ever blogged about their markov chain experiences
 * filters out usernames and links in the final created tweets
 * **doesn't**
   * auto like, respond to new follows, auto-rt
+
+!(/images/bot-menu.gif)
+!(/images/input.gif)
 
 ## pre-requisites
 
