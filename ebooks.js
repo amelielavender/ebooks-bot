@@ -343,15 +343,24 @@ function makeReply() {
     var results = service.fetch(search, parameters);
     var json = results.getContentText();
     var data = JSON.parse(json);
-    var user = data.statuses[d].user.screen_name;
-    var id = data.statuses[d].id_str;
-    var recent = data.statuses[0].id_str;
+    var user = data.statuses[0].user.screen_name;
+    var id = data.statuses[0].id_str;
 
+    var check = sheet.getRange('D40').getValue(); //gets id to reference
+    var re = new RegExp(id, 'g');
+
+    if (check.match(re)) {
+        Logger.log('already replied');
+    } else {
+        doReply(user, id);
+        Logger.log(id);
+        var log = Logger.getLog();
+        sheet.getRange('D40').setValue(log); //logs new id
+    }
 }
 
 //sends reply
 function doReply(user, id) {
-    
 
     var mention = '@' + user + ' ';
     var service = getTwitterService();
