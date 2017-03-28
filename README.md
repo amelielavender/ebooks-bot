@@ -1,5 +1,6 @@
 # ebooks-bot
-gs script behind a google sheet for those who can't code. this google script calls info from a spreadsheet and the twitter oauth api.
+
+google script that lives behind a spreadsheet. the spreadsheet enables anyone to make a markov twitter bot with zero knowledge of code.
 
 inspired by @zachwhalen/ssbot
 
@@ -14,6 +15,7 @@ special thanks: everyone who's ever blogged about their markov chain experiences
 ## features
 
 * no coding or knowledge of scripting languages necessary!
+* runs in the background, thanks to being hosted on your google drive
 * says things weird
 * replies on a limited basis **EXPERIMENTAL**
 * filters out usernames and links in the final created tweets
