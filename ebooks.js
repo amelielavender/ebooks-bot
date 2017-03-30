@@ -113,7 +113,15 @@ function getEbooksText() {
 
     var msg = shitpost(5 + Math.floor(5 * Math.random()));
 
-    msg = msg.replace(/https?:\/\/t\.co\/[a-z0-9]+/ig, '').replace(/@[a-zA-Z0-9_]+/g, '').replace(/RT /, '').replace(/#[a-zA-Z0-9_]+/g, '');
+    var noLinks = [
+              "https?:\/\/t\.co\/[a-z0-9]+",
+              "@[a-z0-9_]+",
+              "RT:?",
+              "/#[a-z0-9_]+",
+              ":"
+             ];
+    var deleteThese = new RegExp(noLinks.join('|'), 'ig');
+    msg = msg.replace(deleteThese, '');
 
     return msg;
 }
@@ -287,7 +295,6 @@ function clearTiming() {
 function makeSingleTweet() {
 
     var tweet = getEbooksText();
-
     doTweet(tweet);
 }
 
@@ -313,7 +320,6 @@ function doTweet(tweet) {
 
     try {
         var result = service.fetch('https://api.twitter.com/1.1/statuses/update.json', parameters);
-        //Logger.log(result.getContentText());    
     } catch (e) {
         Logger.log(e.toString());
     }
