@@ -375,6 +375,7 @@ function makeReply() {
       ScriptApp.deleteTrigger(triggers[1]);
     }
   }
+ replyReset();
 }
 
 //sends reply
