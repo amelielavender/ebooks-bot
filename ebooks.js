@@ -117,7 +117,7 @@ function getEbooksText() {
               "https?:\/\/t\.co\/[a-z0-9]+",
               "@[a-z0-9_]+",
               "RT:?",
-              "/#[a-z0-9_]+",
+              "#[a-z0-9_]+",
               ":"
              ];
     var deleteThese = new RegExp(noLinks.join('|'), 'ig');
@@ -181,12 +181,8 @@ function authCallback(request) {
 }
 
 function authRevoke() {
-    OAuth1.createService('twitter')
-        .setPropertyStore(PropertiesService.getUserProperties())
-        .reset();
-    msgPopUp('<p>Your Twitter authorization deleted. You\'ll need to re-run "Send a Test Tweet" to reauthorize before you can start posting again.');
+    msgPopUp('To revoke authorization, you must go to https://twitter.com/settings/applications and select your bot from the list of installed apps. As a sercurity measure, you cannot revoke access from this sheet.');
 }
-
 
 /*****************
   TWEET TIMING~
@@ -342,8 +338,7 @@ function makeReply() {
 
     var parameters = {
         "method": "GET",
-        "result_type": "recent",
-        "max_id": 0
+        "result_type": "recent"
     }
 
     var results = service.fetch(search, parameters);
@@ -363,6 +358,15 @@ function makeReply() {
         var log = Logger.getLog();
         sheet.getRange('D40').setValue(log); //logs new id
     }
+ 
+   function replyReset() {
+     var triggers = ScriptApp.getProjectTriggers();
+     for (var i = 0; i < triggers.length; i++) {
+       ScriptApp.deleteTrigger(triggers[1]);
+    }
+  }
+ 
+  replyReset();
 }
 
 //sends reply
