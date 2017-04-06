@@ -79,7 +79,7 @@ function getEbooksText() {
     var tweets = {};
 
     var allTweets = archive.getRange('C1:C' + lastRow).getValues();
-
+  
     for (var i = 0; i < allTweets.length; i++) {
         var words = allTweets[i][0].split(' ');
         endwords[words[words.length - 1]] = true;
@@ -112,8 +112,15 @@ function getEbooksText() {
     };
 
     var msg = shitpost(5 + Math.floor(5 * Math.random()));
-
-    msg = msg.replace(/https?:\/\/t\.co\/[a-z0-9]+/ig, '').replace(/@[a-zA-Z0-9_]+/g, '').replace(/RT /, '').replace(/#[a-zA-Z0-9_]+/g, '');
+    var noLinks = [
+              "https?:\/\/t\.co\/[a-z0-9]+",
+              "@[a-z0-9_]+",
+              "RT:?",
+              "#[a-z0-9_]+",
+              ":"
+             ];
+    var deleteThese = new RegExp(noLinks.join('|'), 'ig');
+    msg = msg.replace(deleteThese, '');
 
     return msg;
 }
@@ -336,8 +343,7 @@ function makeReply() {
 
     var parameters = {
         "method": "GET",
-        "result_type": "recent",
-        "max_id": 0
+        "result_type": "recent"
     }
 
     var results = service.fetch(search, parameters);
@@ -351,10 +357,10 @@ function makeReply() {
         var recent = data.statuses[0].id_str;
       
         var check = sheet.getRange('D40').getValue(); //gets id to reference
-        var re = new RegExp(recent, 'g'); //sesarching sheet against the most recent tweet
+        var re = new RegExp(recent, 'g'); //searching sheet against the most recent @mention
 
         if (check.match(re)) {
-            Logger.log('already replied!');
+            Logger.log('already replied to @' + user);
             break;
         } else {
             doReply(user, id);
@@ -363,6 +369,12 @@ function makeReply() {
             sheet.getRange('D40').setValue(log); //logs new id 
         }
     }
+  function replyReset() {
+    var triggers = ScriptApp.getProjectTriggers();
+    for (var i = 0; i < triggers.length; i++) {
+      ScriptApp.deleteTrigger(triggers[1]);
+    }
+  }
 }
 
 //sends reply
