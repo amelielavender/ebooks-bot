@@ -2,7 +2,7 @@
 
  _._     _,-'""`-._
 (,-.`._,'(       |\`-/|
-    `-.-' \ )-`( , o o)
+    `-.-' \ )-`( , o o)   v 1.0.0
           `-    \`_`"'-  
           
      licensed under the MIT license
@@ -36,7 +36,7 @@ function onOpen() {
         .addItem('Send a Test Tweet', 'makeSingleTweet')
         .addItem('Revoke Twitter Authorization', 'authRevoke')
         .addSeparator()
-        .addItem('Start Posting Tweets', 'setTiming')
+        .addItem('Start Posting Tweets\/Update Tweet Timing', 'setTiming')
         .addItem('Stop Posting Tweets', 'clearTiming')
         .addToUi();
 };
@@ -79,7 +79,7 @@ function getEbooksText() {
     var tweets = {};
 
     var allTweets = archive.getRange('C1:C' + lastRow).getValues();
-
+  
     for (var i = 0; i < allTweets.length; i++) {
         var words = allTweets[i][0].split(' ');
         endwords[words[words.length - 1]] = true;
@@ -112,7 +112,6 @@ function getEbooksText() {
     };
 
     var msg = shitpost(5 + Math.floor(5 * Math.random()));
-
     var noLinks = [
               "https?:\/\/t\.co\/[a-z0-9]+",
               "@[a-z0-9_]+",
@@ -125,6 +124,7 @@ function getEbooksText() {
 
     return msg;
 }
+
 
 /*****************
 CONNECT TO TWITTER
@@ -188,17 +188,21 @@ function authRevoke() {
   TWEET TIMING~
 *****************/
 
-//calls makeSingleTweet function on a timer. Makes sense!
-function setTiming() {
-
+function clearTiming() {
     // reset any existing triggers
     var triggers = ScriptApp.getProjectTriggers();
     for (var i = 0; i < triggers.length; i++) {
         ScriptApp.deleteTrigger(triggers[i]);
     }
 
+}
 
+//calls makeSingleTweet function on a timer. Makes sense!
+function setTiming() {
 
+    // reset any existing triggers
+    clearTiming();
+   
     var setting = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('settings').getRange('D35').getValue();
 
     switch (setting) {
@@ -274,15 +278,6 @@ function setTiming() {
 
 }
 
-function clearTiming() {
-    // reset any existing triggers
-    var triggers = ScriptApp.getProjectTriggers();
-    for (var i = 0; i < triggers.length; i++) {
-        ScriptApp.deleteTrigger(triggers[i]);
-    }
-
-}
-
 /*****************
      ONE TWEET
 *****************/
@@ -291,6 +286,7 @@ function clearTiming() {
 function makeSingleTweet() {
 
     var tweet = getEbooksText();
+
     doTweet(tweet);
 }
 
@@ -316,6 +312,7 @@ function doTweet(tweet) {
 
     try {
         var result = service.fetch('https://api.twitter.com/1.1/statuses/update.json', parameters);
+        //Logger.log(result.getContentText());    
     } catch (e) {
         Logger.log(e.toString());
     }
@@ -338,7 +335,8 @@ function makeReply() {
 
     var parameters = {
         "method": "GET",
-        "result_type": "recent"
+        "result_type": "recent",
+        "max_id": 0
     }
 
     var results = service.fetch(search, parameters);
@@ -358,15 +356,6 @@ function makeReply() {
         var log = Logger.getLog();
         sheet.getRange('D40').setValue(log); //logs new id
     }
- 
-   function replyReset() {
-     var triggers = ScriptApp.getProjectTriggers();
-     for (var i = 0; i < triggers.length; i++) {
-       ScriptApp.deleteTrigger(triggers[1]);
-    }
-  }
- 
-  replyReset();
 }
 
 //sends reply
@@ -397,7 +386,6 @@ function doReply(user, id) {
         Logger.log(e.toString());
     }
 }
-
 
 
 /*****************
