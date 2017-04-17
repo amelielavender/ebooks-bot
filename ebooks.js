@@ -366,16 +366,10 @@ function makeReply() {
             doReply(user, id);
             Logger.log(recent);
             var log = Logger.getLog();
-            sheet.getRange('D40').setValue(log); //logs new id 
+            sheet.getRange('D40').setValue(log); //logs new id
+            break;
         }
     }
-  function replyReset() {
-    var triggers = ScriptApp.getProjectTriggers();
-    for (var i = 0; i < triggers.length; i++) {
-      ScriptApp.deleteTrigger(triggers[1]);
-    }
-  }
- replyReset();
 }
 
 //sends reply
