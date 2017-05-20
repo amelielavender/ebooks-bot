@@ -113,11 +113,11 @@ function getEbooksText() {
 
     var msg = shitpost(5 + Math.floor(5 * Math.random()));
     var noLinks = [
-              "https?:\/\/t\.co\/[a-z0-9]+",
+              "https:\/\/t\.co\/[a-z0-9]+",
               "@[a-z0-9_]+",
-              "RT:?",
+              "RT ",
               "#[a-z0-9_]+",
-              ":"
+              ":()"
              ];
     var deleteThese = new RegExp(noLinks.join('|'), 'ig');
     msg = msg.replace(deleteThese, '');
@@ -343,12 +343,15 @@ function makeReply() {
 
     var parameters = {
         "method": "GET",
-        "result_type": "recent"
+        "result_type": "recent",
+        "count": 5
     }
-
+   
     var results = service.fetch(search, parameters);
     var json = results.getContentText();
     var data = JSON.parse(json);
+  
+  Logger.log(data);
 
     for (var d = 0; d < [5]; d++) {
         
@@ -367,7 +370,6 @@ function makeReply() {
             Logger.log(recent);
             var log = Logger.getLog();
             sheet.getRange('D40').setValue(log); //logs new id
-            break;
         }
     }
 }
