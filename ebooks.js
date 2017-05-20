@@ -2,7 +2,7 @@
 
  _._     _,-'""`-._
 (,-.`._,'(       |\`-/|
-    `-.-' \ )-`( , o o)   v 1.0.0
+    `-.-' \ )-`( , o o)    v. 1.0.1
           `-    \`_`"'-  
           
      licensed under the MIT license
@@ -113,11 +113,11 @@ function getEbooksText() {
 
     var msg = shitpost(5 + Math.floor(5 * Math.random()));
     var noLinks = [
-              "https?:\/\/t\.co\/[a-z0-9]+",
+              "https:\/\/t\.co\/[a-z0-9]+",
               "@[a-z0-9_]+",
-              "RT:?",
+              "RT ",
               "#[a-z0-9_]+",
-              ":"
+              ":()"
              ];
     var deleteThese = new RegExp(noLinks.join('|'), 'ig');
     msg = msg.replace(deleteThese, '');
@@ -335,8 +335,7 @@ function makeReply() {
 
     var parameters = {
         "method": "GET",
-        "result_type": "recent",
-        "max_id": 0
+        "result_type": "recent"
     }
 
     var results = service.fetch(search, parameters);
@@ -346,13 +345,13 @@ function makeReply() {
     var id = data.statuses[0].id_str;
 
     var check = sheet.getRange('D40').getValue(); //gets id to reference
-    var re = new RegExp(id, 'g');
+    var re = new RegExp(id + ' ' + user, 'g');
 
     if (check.match(re)) {
         Logger.log('already replied');
     } else {
         doReply(user, id);
-        Logger.log(id);
+        Logger.log(user + ' ' + id);
         var log = Logger.getLog();
         sheet.getRange('D40').setValue(log); //logs new id
     }
