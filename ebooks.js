@@ -345,15 +345,16 @@ function makeReply() {
     var id = data.statuses[0].id_str;
 
     var check = sheet.getRange('D40').getValue(); //gets id to reference
-    var re = new RegExp(id + ' ' + user, 'g');
+    var re = new RegExp(id, 'g');
 
     if (check.match(re)) {
-        Logger.log('already replied');
+      Logger.log('already replied to @' + user);
     } else {
-        doReply(user, id);
-        Logger.log(user + ' ' + id);
-        var log = Logger.getLog();
-        sheet.getRange('D40').setValue(log); //logs new id
+      doReply(user, id); 
+      Logger.log(user + ' ' + id);
+      var log = Logger.getLog();
+      sheet.getRange('D40').setValue(log);  //logs new id 
+      Logger.log('i will reply to @' + user);
     }
 }
 
